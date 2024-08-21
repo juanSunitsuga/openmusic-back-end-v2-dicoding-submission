@@ -5,9 +5,8 @@ class SongsHandler {
 
         (async () => {
             const autoBind = (await import('auto-bind')).default;
+            autoBind(this);
         })();
-
-
     }
 
     async postSongHandler(request, h) {
@@ -27,7 +26,7 @@ class SongsHandler {
     }
 
     async getSongsHandler(request) {
-        const {title, performer} = request.query;
+        const { title, performer } = request.query;
 
         const songs = await this._songsService.getSongs(title, performer);
 
@@ -40,7 +39,7 @@ class SongsHandler {
     }
 
     async getSongByIdHandler(request, h) {
-        const {id} = request.params;
+        const { id } = request.params;
 
         const song = await this._songsService.getSongById(id);
 
@@ -55,7 +54,7 @@ class SongsHandler {
     async putSongByIdHandler(request, h) {
         this._songsValidator.validateSongsPayload(request.payload);
 
-        const {id} = request.params;
+        const { id } = request.params;
         await this._songsService.editSongById(id, request.payload);
 
         return h.response({
@@ -65,7 +64,7 @@ class SongsHandler {
     }
 
     async deleteSongByIdHandler(request, h) {
-        const {id} = request.params;
+        const { id } = request.params;
 
         await this._songsService.deleteSongById(id);
 
