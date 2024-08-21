@@ -5,16 +5,15 @@ class UsersHandler {
 
         (async () => {
             const autoBind = (await import('auto-bind')).default;
-            autoBind(this);
         })();
     }
 
     async postUserHandler(request, h) {
         this._usersValidator.validateUserPayload(request.payload);
 
-        const { username, password, fullname } = request.payload;
+        const {username, password, fullname} = request.payload;
 
-        const userId = await this._usersService.addUser({ username, password, fullname });
+        const userId = await this._usersService.addUser({username, password, fullname});
 
         const response = h.response({
             status: 'success',
@@ -28,7 +27,7 @@ class UsersHandler {
     }
 
     async getUserByIdHandler(request, h) {
-        const { id } = request.params;
+        const {id} = request.params;
 
         const users = await this._usersService.getUserById(id);
 
@@ -41,7 +40,7 @@ class UsersHandler {
     }
 
     async getUserByUsernameHandler(request, h) {
-        const { username = '' } = request.query;
+        const {username = ''} = request.query;
 
         const users = await this._usersService.getUserByUsername(username);
 
